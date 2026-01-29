@@ -2,16 +2,17 @@ package com.stockmarket;
 
 import java.util.Objects;
 
+/** Base type for tradeable assets with pricing logic. */
 public abstract class Asset {
 
     private final AssetType type;
-    private final String symbol;
+    private final String ID;
     private final String name;
     private final double initialPrice;
 
     protected Asset(AssetType type, String symbol, String name, double initialPrice) {
         this.type = type;
-        this.symbol = symbol;
+        this.ID = symbol;
         this.name = name;
         this.initialPrice = initialPrice;
     }
@@ -20,8 +21,8 @@ public abstract class Asset {
         return type;
     }
 
-    public String getSymbol() {
-        return symbol;
+    public String getID() {
+        return ID;
     }
 
     public String getName() {
@@ -41,11 +42,11 @@ public abstract class Asset {
         if (this == o) return true;
         if (!(o instanceof Asset)) return false;
         Asset asset = (Asset) o;
-        return type == asset.type && Objects.equals(symbol, asset.symbol);
+        return type == asset.type && Objects.equals(ID, asset.ID);
     }
 
     @Override
     public int hashCode() {
-        return 31 * type.hashCode() + symbol.hashCode();
+        return 31 * type.hashCode() + ID.hashCode();
     }
 }

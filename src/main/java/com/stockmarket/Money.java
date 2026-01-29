@@ -1,10 +1,8 @@
-package com.stockmarket.domain;
+package com.stockmarket;
 
 import java.math.BigDecimal;
 import java.util.Currency;
 
-
-/** Money reprezentuje ilości pieniężne w danej walucie i zapewnia bezpieczne operacje na nich. */
 public class Money {
     
     private Currency currency;
@@ -15,22 +13,40 @@ public class Money {
         this.currency = currency;
     }
 
-    /** Zwraca instancję money z reprezentacji znakowej liczby i waluty. np. 10.5 usd. */
     public static Money fromString(String amount, String code) {
         Currency currency = Currency.getInstance(code);
         return new Money(new BigDecimal(amount), currency);
     }
 
-    /** Sumuje dwie ilości pieniężne. */
+    public static Money from(BigDecimal amount, Currency currency) {
+        return new Money(amount, currency);
+    }
+
     public Money add(Money money) {
         money = validateIsSameCurrency(money);
         return new Money(this.amount.add(money.amount), money.currency);
     }
 
-    /** Odejmuje dwie ilości pieniężne. */
     public Money subtract(Money money) {
         money = validateIsSameCurrency(money);
         return new Money(this.amount.subtract(money.amount), money.currency);
+    }
+
+    public Money multiply(BigDecimal multiplier) {
+        return new Money(this.amount.multiply(multiplier), currency);
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public int compareTo(Money money) {
+        money = validateIsSameCurrency(money);
+        return this.amount.compareTo(money.amount);
     }
 
     private Money validateIsSameCurrency(Money money) {
