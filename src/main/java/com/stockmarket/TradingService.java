@@ -45,7 +45,7 @@ public class TradingService {
     public void placeBuyLimitOrder(String ticker, String portfolioId, BigDecimal priceLimit, int quantity) {
         OrderBook orderBook = getOrderBook(ticker);
         Portfolio portfolio = ensurePortfolioExists(portfolioId);
-        Money cost = Money.of(priceLimit.multiply(BigDecimal.valueOf(quantity)), portfolio.getCash().getCurrency());
+        Money cost = Money.from(priceLimit.multiply(BigDecimal.valueOf(quantity)), portfolio.getCash().getCurrency());
         portfolio.reserveCash(cost);
         orderBook.placeBuyLimitOrder(portfolioId, priceLimit, quantity);
     }

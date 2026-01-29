@@ -5,9 +5,9 @@ import java.util.Currency;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import com.stockmarket.exceptions.PositionNotInPortfolioException;
 import com.stockmarket.exceptions.InsufficientAssetsException;
 import com.stockmarket.exceptions.InsufficientFundsException;
+import com.stockmarket.exceptions.PositionNotInPortfolioException;
 
 public class Portfolio {
     
@@ -125,7 +125,7 @@ public class Portfolio {
 
     private Money costForTransaction(Transaction transaction, Currency currency) {
         BigDecimal total = transaction.getUnitPrice().multiply(BigDecimal.valueOf(transaction.getQuantity()));
-        return Money.of(total, currency);
+        return Money.from(total, currency);
     }
 
     public void ensureHasPosition(String ticker, int quantity) {

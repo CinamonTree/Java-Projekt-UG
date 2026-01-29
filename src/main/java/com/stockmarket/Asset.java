@@ -2,7 +2,6 @@ package com.stockmarket;
 
 import java.util.Objects;
 
-/** Base type for tradeable assets with pricing logic. */
 public abstract class Asset {
 
     private final AssetType type;
